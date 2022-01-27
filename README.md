@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Archivo NMVRC
+
+Si tienes diferentes versiones de node y además tienes el nvm (node version manager) puedes creas el fichero
+.nvmrc donde podrás indicar la versión recomendada de node para correr este proyecto. Para ver que versión tienes en la consola pones:
+node -v
+y copias y pegas este valor en el fichero, en mi caso es v14.17.6
