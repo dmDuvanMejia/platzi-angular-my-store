@@ -16,3 +16,9 @@ Por otro lado en nuestro componente padre tendremos que hacer referencia a esta 
 
 
  https://static.platzi.com/media/user_upload/3-input-output-f8daf86b-713b-49dc-a2c7-f256f7fc8635.jpg
+
+
+   @Input('product') product!: Product;
+
+con el signo de exclamación le decimos a Angular (o Typescript) que esa propiedad si va a existir, que no puede ser nula, 
+así que no te preocupes, verás que si la tengo jejeje.
