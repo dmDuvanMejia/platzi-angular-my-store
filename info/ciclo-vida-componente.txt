@@ -1,0 +1,39 @@
+Ciclo :
+
+    Constructor: cuando se corre una instancia
+    ngOnChanges : corre antes y durante en el render, siemrpe que detecte cambios en el Input, está para eso, para detectar los cambios.
+    ngOnInit: corre antes pero tiene la condicione que solo correo una vez. Ahi se corren eventos asincronos.
+    ngAfcterViewInit: corre cuando los hijos de ese componentes se han renderizado.
+    NgOnDestroy: Corre cuando se elimina el componente.
+ 
+ 
+ constructor() {
+    // before render
+    // NO async -- once time
+    console.log('constructor', 'imgValue =>', this.img);
+  }
+
+  ngOnChanges() {
+    // before - during render
+    // changes inputs -- multiples times
+    console.log('ngOnChanges', 'imgValue =>', this.img);
+  }
+
+  ngOnInit(): void {
+    // before render
+    // async - fetch -- once time
+    console.log('ngOnInit', 'imgValue =>', this.img);
+  }
+
+  ngAfterViewInit() {
+    // after render
+    // handler children -- once time
+    console.log('ngAfterViewInit');
+  }
+
+  ngOnDestroy() {
+    // delete -- once time
+    console.log('ngOnDestroy');
+  }
+
+  https://medium.com/angular-chile/angular-componentes-y-sus-ciclos-de-vida-aa639e13a688
