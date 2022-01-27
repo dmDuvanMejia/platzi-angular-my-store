@@ -1,0 +1,7 @@
+Información importante...
+
+
+Si no te pregunta el tipo de preprocesador que quieres usar o por la creación de rutas al crear el proyecto, o ejecuta el siguiente comando:
+
+ng new my-store --style=scss
+ng generate module app-routing --flat --module=app

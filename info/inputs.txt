@@ -1,0 +1,18 @@
+Se usa el decorador @Input para enviarle información desde el componente padre hasta el componente hijo. 
+De manera que en nuestro componente hijo tendremos que declarar la variable que queremos recibir desde el padre 
+declarando esta de la siguiente manera:
+
+@input() nombreVariable:string;
+
+Por otro lado en nuestro componente padre tendremos que hacer referencia a esta variable a través del data binding y ubicando
+ esta dentro del tag o etiqueta correspondiente a nuestro componente hijo
+
+<componente-hijo [nombreVariable]="valor" > </componente-hijo>
+
+
+ el decorador @input indica a un componente que puede recibir un valor desde el componente padre, por eso debemos 
+ agregarle el decorador @input a la propiedad que deseamos controlar. más info en 
+ este link https://medium.com/williambastidasblog/angular-decoradores-input-y-output-70af5f43a04
+
+
+ https://static.platzi.com/media/user_upload/3-input-output-f8daf86b-713b-49dc-a2c7-f256f7fc8635.jpg
