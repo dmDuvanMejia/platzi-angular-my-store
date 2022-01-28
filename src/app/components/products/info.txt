@@ -1,0 +1,38 @@
+Si siguieron mi consejo de separar el detalle de producto en un componente nuevo, puedes hacer las siguientes modificaciones
+ para que la información se actualice cuando actualices el producto:
+
+product-detail.component.ts
+
+  @Output() productUpdated = new EventEmitter<Product>();
+
+updateProduct(id: string){
+    const changes: UpdateProductDTO = {
+      title: 'Producto Editado v2'
+    };
+    this.productsService.update(id, changes)
+    .subscribe(data=>{
+      this.product = data;
+      this.productUpdated.emit(this.product);
+    })
+  }
+
+products.component.html
+
+<app-product-detail
+            *ngIf="productChosen"
+            [product]="productChosen"
+            (productUpdated)="onUpdatedProduct($event)"
+        ></app-product-detail>
+
+products.component.ts
+
+  onUpdatedProduct(data:Product){
+    const productIndex = this.products.findIndex(item => item.id === data.id)
+    this.products[productIndex] = data;
+  }
+
+
+Christian Michelle Torres Martínez
+hace 2 meses
+A mi parecer es una mala práctica lo que implementas, ya que product-detail al ser un componente hijo no debería 
+realizar peticiones a una API, para eso tendría que delegársela al componente padre que es products, que considero es donde se tendría que hacer la petición a la API y ahí realizar el update. Pero como te digo sería ver que opina al respecto Nico u otros compañeros con el conocimiento, saludos
