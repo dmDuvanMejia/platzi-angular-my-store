@@ -1,0 +1,27 @@
+
+    Directivas
+
+    Las directivas se usan para modificar el DOM de forma directa y también se pueden modificar los atributos.
+
+Un ejemplo mas podria ser de utlizar una directica que escuche el evento error de una imagen si para luego poner a
+ dicha imagen una imagen por default
+
+@Directive( { selector: '[imageError]' } )
+export class ImageErrorDirective {
+
+//escucha el evento error
+  @HostListener( 'error' )
+  handleError (): void {
+    this.elment.nativeElement.src = "https://www.sam-manipulados.com/wp-content/uploads/2014/01/default_image_01.png";
+  }
+
+  constructor(
+    private elment: ElementRef<HTMLImageElement>
+  ) {
+    console.log( elment );
+  }
+}
+
+//template
+<img imageError width="100px" [src]="image" alt="">
+
