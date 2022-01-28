@@ -1,3 +1,5 @@
+SOLICITUD PUT
+
 Si siguieron mi consejo de separar el detalle de producto en un componente nuevo, puedes hacer las siguientes modificaciones
  para que la información se actualice cuando actualices el producto:
 
@@ -35,4 +37,52 @@ products.component.ts
 Christian Michelle Torres Martínez
 hace 2 meses
 A mi parecer es una mala práctica lo que implementas, ya que product-detail al ser un componente hijo no debería 
-realizar peticiones a una API, para eso tendría que delegársela al componente padre que es products, que considero es donde se tendría que hacer la petición a la API y ahí realizar el update. Pero como te digo sería ver que opina al respecto Nico u otros compañeros con el conocimiento, saludos
+realizar peticiones a una API, para eso tendría que delegársela al componente padre que es products, que considero 
+es donde se tendría que hacer la petición a la API y ahí realizar el update. Pero como te digo sería ver que opina 
+al respecto Nico u otros compañeros con el conocimiento, saludos
+
+
+
+
+
+
+SOLICITUD DELETE
+Si seguiste mi consejo de crear un componente separado para el detalle del producto, puedes hacer las siguientes
+ modificaciones para que cierre la ventana de detalle y se actualice la lista de productos:
+
+product-detail.component.ts
+
+  @Output() productDeleted = new EventEmitter<string>();
+//
+ deleteProduct(){
+    const id = this.product.id;
+    this.productsService.delete(id)
+    .subscribe(data=>{
+      this.productDeleted.emit(id)
+    })
+  }
+
+products.component.html
+
+<app-product-detail
+            *ngIf="productChosen"
+            [product]="productChosen"
+            (productUpdated)="onUpdatedProduct($event)"
+            (productDeleted)="onDeletedProduct($event)"
+        ></app-product-detail>
+
+products.module.ts
+
+onDeletedProduct(id:string){
+    this.showProductDetail = false
+    const productIndex = this.products.findIndex(item => item.id === id)
+    this.products.splice(productIndex, 1);
+  }
+
+Christian Michelle Torres Martínez
+
+Christian Michelle Torres Martínez
+hace 2 meses
+
+Sigo pensando lo mismo amigo, para mejor práctica pasarle al hijo él, id como lo haces con él .emit y en el 
+componente padre que es productos entonces si ahí realizar la petición para la eliminación
