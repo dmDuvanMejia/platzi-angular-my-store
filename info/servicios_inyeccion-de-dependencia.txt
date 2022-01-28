@@ -1,0 +1,55 @@
+
+    Servicios
+
+    Los servicios es el lugar en donde se define la lógica del negocio de la aplicación, con el objetivo que se reutilizable 
+    e independiente de los componentes.
+
+Conociendo los servicios
+
+Es la forma en la que Angular hace modular nuestra aplicación y apartar nuestra lógica de negocio.
+
+Los services tienne decodadores y le dicen a angular como debe de coportarse esa clase y hace que se pueda inyectar en 
+otros componentes y servicios.
+¿Qué es la inyección de dependencias?
+
+En la clase pasada creamos un servicio gracias al generador de servicios de angular: ng generate s components/StoreService
+
+Angular marca on un decorador a los servicios, en este caso sería inyectable. Para que se puedan inyectar en diferentes archivos
+
+Tambien tiene un ambiente o dominio o un alcancé como scope, en este caso es providenIn: ‘’root’, significa que en el modulo
+ que estemos trabajando sin necesidad de estar directamente en el modulo.
+
+Los servicios pueden ser inyectados en componentes.
+
+La sintaxis es ir a nuestro componente y es importar nuestro servicio y desde el constructor le damos un modo de acceso. 
+Ya sea privado o publico. Esto depende de como lo queramos manejar en nuestro componente. Le ponemos un tipado en este 
+caso “storeService”;
+
+Yo puedo tener varios servicios y como cualquier aplicación podemos tener varios componentes. En este ejemplo tengo dos 
+servicios y tres componentes. El componente A y B están requiriendo del servicio A, mientras que el componente C y B del 
+servicio B. A su vez los componentes pueden inyectas varios servicios a la vez (como en este caso, el componente B).
+
+Cada componente crea una instancia del servicio.
+
+El patrón Singleton se refiere a que si se crea una instancia de algún elemento o instancia en particular y otro 
+componente lo requiere no crea otra instancia sino que guarda la necesaria y devuelve esa referencia a los demás 
+componentes que lo necesiten.
+
+Otro caso que se puede dar en que un servicio puede inyectar a otro. En este escenario el servicio A necesita del 
+servicio B. Los componentes pueden inyectar servicios y los servicios pueden inyectar servicios.
+
+Donde si hay que tener precaución es no tener una doble inyección
+Si ambos servicios depende de ellos nos dará un error ya que se bloquean y nos daría un error de referencia circular en Angular
+
+
+Inyección de Dependencias
+
+Inyección de Dependencias (Dependency Injection o DI) es un patrón de diseño en el que una clase requiere instancias de una
+ o más clases y en vez de generarlas dentro de su propio constructor, las recibe ya instanciadas por un mecanismo externo.
+
+ Singleton
+
+En ingeniería de software, singleton o instancia única es un patrón de diseño que permite restringir la creación de 
+objetos pertenecientes a una clase o el valor de un tipo a un único objeto. Su intención consiste en garantizar que una 
+clase solo tenga una instancia y proporcionar un punto de acceso global a ella.
+Wikipedia.

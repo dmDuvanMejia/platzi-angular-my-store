@@ -5,3 +5,11 @@ Si no te pregunta el tipo de preprocesador que quieres usar o por la creación d
 
 ng new my-store --style=scss
 ng generate module app-routing --flat --module=app
+
+
+
+
+LINKS: 
+https://soka.gitlab.io/angular/conceptos/componentes/comunicacion-entre-componentes/comunicacion-entre-componentes/
+https://github.com/iMatias-ED/Platzi-Notes (Interesante)
+https://docs.angular.lat/tutorial/toh-pt4
