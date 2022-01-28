@@ -9,6 +9,7 @@ export class ImgComponent implements OnInit {
 
   img: string = '';
 
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('img')
   set changeImg(newImg: string) {
     this.img = newImg;
@@ -27,15 +28,6 @@ export class ImgComponent implements OnInit {
     console.log('constructor', 'imgValue =>', this.img);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // before - during render
-    // changes inputs -- multiples times
-    console.log('ngOnChanges', 'imgValue =>', this.img);
-    console.log('changes', changes);
-    // if (changes.) {
-    //   // code
-    // }
-  }
 
   ngOnInit(): void {
     // before render
@@ -45,18 +37,6 @@ export class ImgComponent implements OnInit {
     //   this.counter += 1;
     //   console.log('run counter');
     // }, 1000);
-  }
-
-  ngAfterViewInit() {
-    // after render
-    // handler children -- once time
-    console.log('ngAfterViewInit');
-  }
-
-  ngOnDestroy() {
-    // delete -- once time
-    console.log('ngOnDestroy');
-    // window.clearInterval(this.counterFn);
   }
 
   imgError() {
