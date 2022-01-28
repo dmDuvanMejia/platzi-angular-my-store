@@ -9,15 +9,22 @@ import { Product } from '../../models/product.model';
 })
 export class ProductComponent {
 
+  // //Forma de utilizarlo sin necesidad de crear todos los objecto
+  // @Input() product!: Product;
+  
   @Input() product: Product = {
     id: '',
     price: 0,
-    image: '',
+    images: [],
     title: '',
     description: '',
-    category: ''
+    category: {
+      id: '',
+      name: ''
+    }
   };
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showProduct = new EventEmitter<string>();
 
   constructor() { }
 
@@ -25,4 +32,7 @@ export class ProductComponent {
     this.addedProduct.emit(this.product);
   }
 
+  onShowDetail() {
+    this.showProduct.emit(this.product.id);
+  }
 }
