@@ -4,6 +4,7 @@ import { CreateProductDTO, Product, UpdateProductDTO } from '../../models/produc
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -29,6 +30,7 @@ export class ProductsComponent implements OnInit {
   };
   limit = 10;
   offset = 0;
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private storeService: StoreService,
@@ -54,11 +56,33 @@ export class ProductsComponent implements OnInit {
   }
 
   onShowDetail(id: string) {
+    this.statusDetail = 'loading';
     this.productsService.getProduct(id)
-    .subscribe(data => {
+    .subscribe({
+      next: (data) => {
+        this.toggleProductDetail();
+        this.productChosen = data;
+        this.statusDetail = 'success';
+      },
+      error: (errorMsg) => {
+        this.statusDetail = 'error';
+        Swal.fire({
+          title: 'Error!',
+          text: errorMsg,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      }
+    });
+   
+    //DEPRECATED
+    /* .subscribe(data => {
       this.toggleProductDetail();
       this.productChosen = data;
-    })
+      this.statusDetail = 'success';
+    }, err => {
+      this.statusDetail = 'error';
+    })*/
   }
 
   createNewProduct() {
