@@ -12,7 +12,6 @@ export class NavComponent implements OnInit {
 
   activeMenu = false;
   counter = 0;
-  token = '';
   profile: User | null = null;
 
   constructor(
