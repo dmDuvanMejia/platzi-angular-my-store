@@ -1,0 +1,8 @@
+Interceptors
+
+Los interceptors en Angular nos brindan un mecanismo para interceptar y/o mutar las solicitudes y respuestas http.
+
+
+Para qué sirve multi: true?
+Prácticamente permite “construir” multiples dependencias para un mismo token. Es una forma de extender un token
+ en particular para un objeto (provider), angular utiliza esta forma para hacer hooks conectables.
