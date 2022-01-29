@@ -4,6 +4,8 @@ import { CreateProductDTO, Product, UpdateProductDTO } from '../../models/produc
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
+import { zip } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -83,6 +85,23 @@ export class ProductsComponent implements OnInit {
     }, err => {
       this.statusDetail = 'error';
     })*/
+  }
+
+  //switchMap manejar varias dependencias
+  //zip manejar varias peticiones
+  readAndUpdate(id: string) {
+    this.productsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.productsService.update(product.id, {title: 'change'})),
+    )
+    .subscribe(data => {
+      console.log(data);
+    });
+    this.productsService.fetchReadAndUpdate(id, {title: 'change'})
+    .subscribe(response => {
+      const read = response[0];
+      const update = response[1];
+    })
   }
 
   createNewProduct() {
