@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { retry, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { retry, catchError, map } from 'rxjs/operators';
+import { throwError, zip } from 'rxjs';
 
 import { Product, CreateProductDTO, UpdateProductDTO } from './../models/product.model';
 import { environment } from './../../environments/environment';
@@ -25,25 +25,31 @@ export class ProductsService {
     }
     return this.http.get<Product[]>(this.apiUrl, { params })
     .pipe(
-      retry(3)
+      catchError((error: HttpErrorResponse) => {
+        return this.msgErrorHtmlCode(error.status);
+      }),
+      retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: .19 * item.price
+        }
+      }))
     );
   }
 
   getProduct(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === HttpStatusCode.Conflict) {
-          return throwError(() => 'Algo esta fallando en el server');
-        }
-        if (error.status === HttpStatusCode.NotFound) {
-          return throwError(() => 'El producto no existe');
-        }
-        if (error.status === HttpStatusCode.Unauthorized) {
-          return throwError( () => 'No estas permitido');
-        }
-        return throwError( () => 'Ups algo salio mal');
+       return this.msgErrorHtmlCode(error.status);
       }),
       retry(3),
+      map(products =>  {
+        return {
+          ...products,
+          taxes: .19 * products.price
+        }
+      })
     );
   }
 
@@ -51,7 +57,16 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.apiUrl}`, {
       params: { limit, offset }
     }).pipe(
-      retry(3)
+      catchError((error: HttpErrorResponse) => {
+        return this.msgErrorHtmlCode(error.status);
+      }),
+      retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: .19 * item.price
+        }
+      }))
     );
   }
 
@@ -65,5 +80,18 @@ export class ProductsService {
 
   delete(id: string) {
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+  }
+
+  msgErrorHtmlCode(error: HttpStatusCode) {
+    if (error === HttpStatusCode.Conflict) {
+      return throwError(() => 'Algo esta fallando en el server');
+    }
+    if (error === HttpStatusCode.NotFound) {
+      return throwError(() => 'El producto no existe');
+    }
+    if (error === HttpStatusCode.Unauthorized) {
+      return throwError( () => 'No estas permitido');
+    }
+    return throwError( () => 'Ups algo salio mal');
   }
 }
