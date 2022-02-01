@@ -6,4 +6,8 @@
   <p> 
     <button (click)="downloadPdf()" download>Descargar PDF HTTTP</button>
   </p>
+  <p> 
+    <input type="file" (click)="onUpload($event)" >
+    <img *ngIf="imgRta" [src]="imgRta" alt="">
+  </p>
 <app-products></app-products>
