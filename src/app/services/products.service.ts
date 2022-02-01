@@ -18,12 +18,17 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  getAllProducts(limit?: number, offset?: number) {
+  getAll(limit?: number, offset?: number) {
     let params = new HttpParams();
-    if (limit && offset) {
-      params = params.set('limit', limit);
-      params = params.set('offset', limit);
+    //Inicio de los cambios
+    const temp_limit = limit as number;
+    const temp_offset = offset as number;
+    
+    if(temp_limit?.toString().length > 0 && temp_offset?.toString().length > 0) {
+      params = params.set('limit', temp_limit);
+      params = params.set('offset', temp_offset);
     }
+   //Fin de los cambios
     return this.http.get<Product[]>(this.apiUrl, { params, context: checkTime() })
     .pipe(
       catchError((error: HttpErrorResponse) => {

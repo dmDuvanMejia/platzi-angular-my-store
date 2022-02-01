@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { CreateProductDTO, Product, UpdateProductDTO } from '../../models/product.model';
 
@@ -13,11 +13,11 @@ import Swal from 'sweetalert2';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
   myShoppingCart: Product[] = [];
   total = 0;
-  products: Product[] = [];
+  @Input() products: Product[] = [];
   showProductDetail = false;
   productChosen: Product = {
     id: '',
@@ -39,13 +39,6 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
-  }
-
-  ngOnInit(): void {
-    this.productsService.getProductsByPage(10, 0)
-    .subscribe(data => {
-      this.products = data;
-    });
   }
 
   onAddToShoppingCart(product: Product) {
@@ -76,7 +69,7 @@ export class ProductsComponent implements OnInit {
         });
       }
     });
-   
+
     //DEPRECATED
     /* .subscribe(data => {
       this.toggleProductDetail();
@@ -141,12 +134,12 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loadMore() {
-    this.productsService.getProductsByPage(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = this.products.concat(data);
-      this.offset += this.limit;
-    });
-  }
+  // loadMore() {
+  //   this.productsService.getProductsByPage(this.limit, this.offset)
+  //   .subscribe(data => {
+  //     this.products = this.products.concat(data);
+  //     this.offset += this.limit;
+  //   });
+  // }
 
 }
